@@ -1,9 +1,12 @@
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mockStatic;
 
 class HorseTest {
 
@@ -53,11 +56,22 @@ class HorseTest {
     }
 
     @Test
-    void move() {
-
+    void checkMethodMoveCallsInsideMethodGetRandomDoubleWithCorrectParameters() {
+        try(MockedStatic<Horse> randomMockedStatic = mockStatic(Horse.class)) {
+            new Horse("Horse", 1,1).move();
+            randomMockedStatic.verify(() -> Horse.getRandomDouble(0.2, 0.9));
+        }
     }
 
-    @Test
-    void getRandomDouble() {
+    @ParameterizedTest
+    @CsvSource({"0.2", "0.1", "0.4"})
+    void checkMethodMoveAssignsValueToDistanceAccordingFormula(double randomDouble) {
+        try(MockedStatic<Horse> randomMockedStatic = mockStatic(Horse.class)) {
+            horse = new Horse("Horse", 10,1);
+            double formula = horse.getDistance() + horse.getSpeed() * randomDouble;
+            randomMockedStatic.when(() -> Horse.getRandomDouble(0.2, 0.9)).thenReturn(randomDouble);
+            horse.move();
+            assertEquals(formula, horse.getDistance());
+        }
     }
 }
