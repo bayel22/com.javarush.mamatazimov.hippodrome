@@ -20,7 +20,7 @@ class HorseTest {
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "\t", "\n", "\t\n", "\r"})
     void throwsExceptionWhenNameIsNullOrWhitespaceSymbols(String message) {
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> new Horse(message, -1, -1));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> new Horse(message, 1, 1));
         assertEquals("Name cannot be blank.", illegalArgumentException.getMessage());
     }
 
@@ -50,7 +50,7 @@ class HorseTest {
 
     @Test
     void getDistance() {
-        horse = new Horse("Horse", 1,1);
+        horse = new Horse("Horse", 5,1);
         assertEquals(1, horse.getDistance());
     }
 

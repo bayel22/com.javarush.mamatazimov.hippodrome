@@ -11,7 +11,7 @@ class MainTest {
     @Disabled
     @Test
     @Timeout(value = 22, unit = TimeUnit.SECONDS)
-    void main() throws Exception {
+    void сheckMethodMainTakesNoLongerThan22Seconds() throws Exception {
         Main.main(null);
     }
 }

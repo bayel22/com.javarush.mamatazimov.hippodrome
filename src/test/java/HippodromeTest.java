@@ -32,6 +32,7 @@ class HippodromeTest {
             horses.add(new Horse("h"+i,i,i));
         }
         Hippodrome hippodrome = new Hippodrome(horses);
+
         assertEquals(horses, hippodrome.getHorses());
     }
 
@@ -55,7 +56,7 @@ class HippodromeTest {
         Horse horse2 = new Horse("h2",1,2);
         Horse horse3 = new Horse("h3",1,3);
         Horse horse4 = new Horse("h4",1,4);
-        Hippodrome hippodrome = new Hippodrome(List.of(horse1, horse2, horse3, horse4));
+        Hippodrome hippodrome = new Hippodrome(List.of(horse1, horse4, horse2, horse3));
 
         assertSame(horse4, hippodrome.getWinner());
 
